@@ -1,0 +1,89 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>timed-restore</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <name>TimedRestore</name>
+  <description>Periodically restore worldguard regions.</description>
+
+  <parent>
+     <groupId>name.richardson.james.bukkit</groupId>
+     <artifactId>default-pom</artifactId>
+     <version>5</version>
+     <relativePath></relativePath>
+  </parent>
+
+  <repositories>
+      <repository>
+      <id>my-repo</id>
+      <url>http://repository.james.richardson.name/releases</url>
+    </repository>
+    <repository>
+      <id>sonatype-forge</id>
+      <url>https://repository.sonatype.org/content/groups/forge/</url>
+    </repository>
+    <!-- sk89q's repository -->
+    <repository>
+      <id>sk89q-mvn2</id>
+      <url>http://maven.sk89q.com/repo/</url>
+    </repository>
+  </repositories>
+
+  <dependencies>
+     <dependency>
+           <groupId>name.richardson.james.bukkit</groupId>
+           <artifactId>bukkit-utilities</artifactId>
+           <version>5.0.0-SNAPSHOT</version>
+     </dependency>
+     <dependency>
+           <groupId>com.sk89q</groupId>
+           <artifactId>worldguard</artifactId>
+           <version>5.7.3</version>
+     </dependency>
+     <dependency>
+           <groupId>com.sk89q</groupId>
+           <artifactId>worldedit</artifactId>
+           <version>5.5.6</version>
+     </dependency>
+     <dependency>
+           <groupId>net.sf.cron4j</groupId>
+           <artifactId>cron4j</artifactId>
+           <version>2.2.3</version>
+     </dependency>
+     
+  </dependencies>
+
+  <build>
+      <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-shade-plugin</artifactId>
+             <!-- We want to bundle in BukkitUtilities -->
+            <version>1.5</version>
+            <executions>
+              <execution>
+                <phase>package</phase>
+                <goals>
+                  <goal>shade</goal>
+                </goals>
+                <configuration>
+                  <artifactSet>
+                    <includes>
+                      <include>name.richardson.james.bukkit:bukkit-utilities</include>
+                      <include>net.sf.cron4j:cron4j</include>
+                    </includes>
+                  </artifactSet>
+                  <relocations>
+                    <relocation>
+                      <pattern>name.richardson.james.bukkit.utilities</pattern>
+                      <shadedPattern>name.richardson.james.bukkit.timedrestore.utilities</shadedPattern>
+                    </relocation>
+                  </relocations>
+                  <minimizeJar>true</minimizeJar>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+      </plugins>
+  </build>
+
+</project>

@@ -1,0 +1,7 @@
+default:
+  schedule: "* * * * *"
+  world: world
+  snapshot: "2013-05-26--12-00"
+  regions:
+    - region1
+    - region2

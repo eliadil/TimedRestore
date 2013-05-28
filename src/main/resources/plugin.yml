@@ -1,0 +1,9 @@
+name: ${project.name}
+main: name.richardson.james.bukkit.timedrestore.TimedRestorePlugin
+description: ${project.description}
+version: ${project.version}
+depend: [WorldEdit, WorldGuard]
+commands:
+  tr:
+    description: 'Additional ban commands'
+    usage: '/bh [check|history|purge|recent|reload]'
