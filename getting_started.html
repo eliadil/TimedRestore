@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 (experimental) for Linux https://github.com/w3c/tidy-html5/tree/c63cc39">
+  <meta charset="utf-8">
+
+  <title>Getting started</title>
+  <meta name="description" content="">
+  <meta name="author" content="James Richardson"><!-- Enable responsive viewport -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><!-- Import bootstrap .js -->
+
+  <script src="http://code.jquery.com/jquery-1.9.1.min.js">
+</script>
+  <script type="text/javascript" src="http://grandwazir.github.io/TimedRestore/assets/themes/twitter/bootstrap/js/bootstrap.js">
+</script><!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+  <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  <!-- Le styles -->
+  <link href="http://grandwazir.github.io/TimedRestore/assets/themes/twitter/bootstrap/css/bootstrap.2.2.2.min.css" rel="stylesheet">
+  <link href="http://grandwazir.github.io/TimedRestore/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all"><!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+  <!-- atom & rss feed -->
+  <link href="http://grandwazir.github.io/TimedRestore/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+  <link href="http://grandwazir.github.io/TimedRestore/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+</head>
+
+<body data-spy="scroll" data-target="#scrollspy" class="extra-padding">
+  <div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container-narrow">
+        <a class="brand" href="http://grandwazir.github.io/TimedRestore">TimedRestore</a>
+
+        <ul class="nav">
+          <li>
+            <a href="http://grandwazir.github.io/TimedRestore/download.html">Download</a>
+          </li>
+
+          <li>
+            <a href="http://grandwazir.github.io/TimedRestore/features.html">Features</a>
+          </li>
+
+          <li class="active">
+            <a href="http://grandwazir.github.io/TimedRestore/getting_started.html" class="active">Getting started</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div><!-- Add a secondary bar if necessary -->
+
+  <div id="scrollspy" class="navbar navbar-inverse navbar-fixed-top navbar-secondary">
+    <div class="navbar-inner">
+      <div class="container-narrow">
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"></a>
+
+        <div class="nav-collapse">
+          <ul class="nav">
+            <li>
+              <a href="#scheduling_tasks">Scheduling tasks</a>
+            </li>
+
+            <li>
+              <a href="#configuring_tasks">Configuring tasks</a>
+            </li>
+
+            <li>
+              <a href="#permissions">Permissions</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-narrow scroll-adjust">
+    <div class="content">
+      <div class="page-header">
+        <h1>Getting started</h1>
+      </div>
+
+      <div class="row-fluid">
+        <div class="span12">
+          <p class='lead'>Getting started with TimedRestore couldn't be easier. Just download and drag it into your plugins folder and away you go. Still stuck? Read on.</p>
+
+          <h2 id='scheduling_tasks'>Scheduling tasks</h2>
+
+          <div class='alert alert-block'>
+            Restoring regions is a time consuming operation and <strong>will lock</strong> your server while they are ongoing. You may want to consider this in your scheduling when restoring multiple large regions.
+          </div>
+
+          <p>Scheduling tasks in TimedRestore is very flexible and best explained through examples. Internally TimedRestore uses the <a href='http://www.sauronsoftware.it/projects/cron4j'>cron4j</a> library to simulate a unix cron like syntax for scheduling tasks. It is broken into 5 values and seperated by spaces:</p>
+
+          <dl>
+            <dt>Minutes sub-pattern</dt>
+
+            <dd>During which minutes of the hour should the task been launched? The values range is from 0 to 59.</dd>
+
+            <dt>Hours sub-pattern</dt>
+
+            <dd>During which hours of the day should the task been launched? The values range is from 0 to 23.</dd>
+
+            <dt>Days of month sub-pattern.</dt>
+
+            <dd>During which days of the month should the task been launched? The values range is from 1 to 31. The special value "L" can be used to recognize the last day of month.</dd>
+
+            <dt>Months sub-pattern.</dt>
+
+            <dd>During which months of the year should the task been launched? The values range is from 1 (January) to 12 (December), otherwise this sub-pattern allows the aliases "jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov" and "dec".</dd>
+
+            <dt>Days of week sub-pattern</dt>
+
+            <dd>During which days of the week should the task been launched? The values range is from 0 (Sunday) to 6 (Saturday), otherwise this sub-pattern allows the aliases "sun", "mon", "tue", "wed", "thu", "fri" and "sat".</dd>
+          </dl>
+
+          <p>Full documentation is available in the <a href='http://www.sauronsoftware.it/projects/cron4j/manual.php'>cron4j manual</a>.</p>
+
+          <h3 id='example_schedules'>Example schedules</h3>
+
+          <dl>
+            <dt>0 */1 * * *</dt>
+
+            <dd>To be scheduled once every hour, at the start of the hour.</dd>
+
+            <dt>* * * * *</dt>
+
+            <dd>To be scheduled every minute.</dd>
+
+            <dt>*/5 * * * *</dt>
+
+            <dd>To be scheduled every 5 minutes</dd>
+
+            <dt>0 0 */7 * *</dt>
+
+            <dd>To be scheduled once a week on the first day at midnight.</dd>
+
+            <dt>0 7 L * *</dt>
+
+            <dd>To be scheduled on the last day of each month at 7AM.</dd>
+          </dl>
+
+          <h2 id='configuring_tasks'>Configuring tasks</h2>
+
+          <p>For this example I am going to simple create a task which is going to restore a single region. I’ve already <a href='http://wiki.sk89q.com/wiki/WorldEdit/Snapshots'>taken a snapshot</a> of the world called <code>original</code> which I am going to use to restore the region. The region I am going to restore is called <code>spawn</code> and I want to do it once every day. My tasks.yml is going to end up looking like this:</p>
+          <pre>
+<code>tutorial:
+  schedule: "0 0 */1 * *"
+  world: world
+  snapshot: "original"
+  regions:
+    - spawn</code>
+</pre>
+
+          <p>You can configure as many regions as you like to restore within one task. TimedRestore will restore the regions in the order that you specify. They will all be restored using the same snapshot.</p>
+
+          <h2 id='permissions'>Permissions</h2>
+
+          <dl>
+            <dt>timedrestore</dt>
+
+            <dd>Allow access to everything in the plugin (defaults op)</dd>
+
+            <dt>timedrestore.reload</dt>
+
+            <dd>Allow a player to reload the plugin's configuration (defaults op)</dd>
+
+            <dt>timedrestore.scheduler</dt>
+
+            <dd>Allow a player to enable or disable scheduled tasks (defaults op)</dd>
+
+            <dt>timedrestore.status</dt>
+
+            <dd>Allow a player to check the status of the scheduler (defaults op)</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+    <hr>
+
+    <footer>
+      <p class="text-center"><small>© 2013 James Richardson with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a> and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a></small></p>
+    </footer>
+  </div>
+</body>
+</html>
