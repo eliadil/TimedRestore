@@ -61,31 +61,23 @@ public class RestoreRegion implements Localised {
 
 	public static LocalWorld getLocalWorld(final String worldName) {
 		for (final LocalWorld world : RestoreRegion.worlds) {
-			if (world.getName().equalsIgnoreCase(worldName)) {
-				return world;
-			}
+			if (world.getName().equalsIgnoreCase(worldName)) { return world; }
 		}
 		return null;
 	}
 
-	public static void setLocalWorlds(final List<LocalWorld> worlds) {
-		if (worlds == null) {
-			throw new IllegalArgumentException();
-		}
+	public static void setLocalWorlds(final List<LocalWorld> worlds) throws MissingComponentException {
+		if (worlds == null) { throw new MissingComponentException("No worlds configured!"); }
 		RestoreRegion.worlds = worlds;
 	}
 
-	public static void setRegionManager(final GlobalRegionManager manager) {
-		if (manager == null) {
-			throw new IllegalArgumentException();
-		}
+	public static void setRegionManager(final GlobalRegionManager manager) throws MissingComponentException {
+		if (manager == null) { throw new MissingComponentException("No region manager configured!"); }
 		RestoreRegion.manager = manager;
 	}
 
-	public static void setSnapshotRepository(final SnapshotRepository repo) {
-		if (repo == null) {
-			throw new IllegalArgumentException();
-		}
+	public static void setSnapshotRepository(final SnapshotRepository repo) throws MissingComponentException {
+		if (repo == null) { throw new MissingComponentException("No snapshots configured!"); }
 		RestoreRegion.snapshots = repo;
 	}
 
@@ -110,14 +102,10 @@ public class RestoreRegion implements Localised {
 	 */
 	public RestoreRegion(final String worldName, final String regionName) throws InvalidWorldException, InvalidRegionException {
 		final World world = Bukkit.getWorld(worldName);
-		if (world == null) {
-			throw new InvalidWorldException(worldName);
-		}
+		if (world == null) { throw new InvalidWorldException(worldName); }
 		final ProtectedRegion worldGuardRegion = RestoreRegion.manager.get(world).getRegion(regionName);
 		final LocalWorld localWorld = RestoreRegion.getLocalWorld(worldName);
-		if ((localWorld == null) || (worldGuardRegion == null)) {
-			throw new InvalidRegionException(worldName, regionName);
-		}
+		if ((localWorld == null) || (worldGuardRegion == null)) { throw new InvalidRegionException(worldName, regionName); }
 		this.region = new Polygonal2DRegion(localWorld, worldGuardRegion.getPoints(), 0, world.getMaxHeight());
 	}
 

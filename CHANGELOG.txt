@@ -1,5 +1,7 @@
 Changelog for TimedRestore (v1.0.0-SNAPSHOT)
 
+2013-05-31 18:16:14 +0100    establish automatic descheduling of failed tasks (James Richardson)
+2013-05-31 18:15:16 +0100    update to use latest bukkit utilities changes (James Richardson)
 2013-05-31 17:51:16 +0100    shade cron4j (James Richardson)
 2013-05-28 18:11:06 +0100    write readme (James Richardson)
 2013-05-28 17:40:51 +0100    initial commit (James Richardson)

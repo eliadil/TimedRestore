@@ -38,6 +38,7 @@ import name.richardson.james.bukkit.timedrestore.management.SchedulerCommand;
 import name.richardson.james.bukkit.timedrestore.management.StatusCommand;
 import name.richardson.james.bukkit.timedrestore.persistence.TaskConfiguration;
 import name.richardson.james.bukkit.timedrestore.persistence.TaskConfigurationEntry;
+import name.richardson.james.bukkit.timedrestore.region.MissingComponentException;
 import name.richardson.james.bukkit.timedrestore.region.RestoreRegion;
 import name.richardson.james.bukkit.timedrestore.scheduler.CronRestoreTask;
 import name.richardson.james.bukkit.timedrestore.scheduler.RestoreTask;
@@ -67,15 +68,22 @@ public class TimedRestorePlugin extends AbstractPlugin {
 	 */
 	@Override
 	public void onEnable() {
+		boolean success = true;
 		try {
+			this.loadConfiguration();
 			this.initaliseWorldEdit();
 			this.initaliseWorldGuard();
-			this.loadConfiguration();
 			this.setPermissions();
 			this.registerCommands();
 			this.updatePlugin();
-		} catch (final IOException e) {
+		} catch (final Exception e) {
+			this.getCustomLogger().log(Level.SEVERE, "Unable to enable TimedRestore!");
 			e.printStackTrace();
+			success = false;
+		} finally {
+			if (!success) {
+				Bukkit.getPluginManager().disablePlugin(this);
+			}
 		}
 	}
 
@@ -122,10 +130,12 @@ public class TimedRestorePlugin extends AbstractPlugin {
 	 * This then sets two static variables required for the {@link RestoreRegion}
 	 * class: {@link SnapshotRepository} and a list of {@link LocalWorld} required
 	 * to restore selections.
+	 * 
+	 * @throws MissingComponentException
 	 */
-	private void initaliseWorldEdit() {
+	private void initaliseWorldEdit() throws MissingComponentException {
 		final WorldEditPlugin plugin = (WorldEditPlugin) Bukkit.getPluginManager().getPlugin("WorldEdit");
-		this.getCustomLogger().log(Level.FINE, "Using " + plugin.getDescription().getFullName());
+		this.getCustomLogger().log(Level.CONFIG, "Using " + plugin.getDescription().getFullName());
 		RestoreRegion.setSnapshotRepository(plugin.getLocalConfiguration().snapshotRepo);
 		RestoreRegion.setLocalWorlds(plugin.getServerInterface().getWorlds());
 	}
@@ -135,10 +145,12 @@ public class TimedRestorePlugin extends AbstractPlugin {
 	 * 
 	 * This then sets one static variable required for the {@link RestoreRegion}
 	 * class: {@link GlobalRegionManager} for looking up regions to restore.
+	 * 
+	 * @throws MissingComponentException
 	 */
-	private void initaliseWorldGuard() {
+	private void initaliseWorldGuard() throws MissingComponentException {
 		final WorldGuardPlugin plugin = (WorldGuardPlugin) Bukkit.getPluginManager().getPlugin("WorldGuard");
-		this.getCustomLogger().log(Level.FINE, "Using " + plugin.getDescription().getFullName());
+		this.getCustomLogger().log(Level.CONFIG, "Using " + plugin.getDescription().getFullName());
 		RestoreRegion.setRegionManager(plugin.getGlobalRegionManager());
 	}
 
