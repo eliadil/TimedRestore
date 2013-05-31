@@ -77,10 +77,6 @@
                       <pattern>name.richardson.james.bukkit.utilities</pattern>
                       <shadedPattern>name.richardson.james.bukkit.timedrestore.utilities</shadedPattern>
                     </relocation>
-                    <relocation>
-                      <pattern>net.sf.cron4j</pattern>
-                      <shadedPattern>name.richardson.james.bukkit.timedrestore.utilities.cron4j</shadedPattern>
-                    </relocation>
                   </relocations>
                   <minimizeJar>true</minimizeJar>
                 </configuration>

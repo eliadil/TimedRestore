@@ -120,7 +120,6 @@ public class TimedRestorePlugin extends AbstractPlugin {
 		for (final TaskConfigurationEntry entry : configuration.getTasks()) {
 			final CronRestoreTask timer = new CronRestoreTask(entry, this);
 			this.tasks.add(timer);
-			timer.schedule();
 		}
 	}
 

@@ -82,6 +82,7 @@ public class CronRestoreTask extends AbstractRestoreTask {
 	public CronRestoreTask(final TaskConfigurationEntry configuration, final Plugin plugin) {
 		super(configuration);
 		this.plugin = plugin;
+		this.schedule();
 	}
 
 	/*

@@ -54,7 +54,7 @@ public class SchedulerCommand extends AbstractCommand {
 	 */
 	public void execute(final List<String> arguments, final CommandSender sender) {
 		if (arguments.isEmpty()) {
-			sender.sendMessage(this.getMessage("must-specify-boolean"));
+			sender.sendMessage(this.getMessage("error.must-specify-boolean"));
 		} else {
 			final boolean state = Boolean.parseBoolean(arguments.get(0).toUpperCase());
 			if (state) {

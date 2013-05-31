@@ -61,6 +61,7 @@ public class BukkitRestoreTask extends AbstractRestoreTask {
 	public BukkitRestoreTask(final TaskConfigurationEntry configuration, final Plugin plugin) {
 		super(configuration);
 		this.plugin = plugin;
+		this.schedule();
 	}
 
 	/*
