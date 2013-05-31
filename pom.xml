@@ -32,7 +32,7 @@
      <dependency>
            <groupId>name.richardson.james.bukkit</groupId>
            <artifactId>bukkit-utilities</artifactId>
-           <version>5.0.0-SNAPSHOT</version>
+           <version>5.0.2</version>
      </dependency>
      <dependency>
            <groupId>com.sk89q</groupId>
@@ -76,6 +76,10 @@
                     <relocation>
                       <pattern>name.richardson.james.bukkit.utilities</pattern>
                       <shadedPattern>name.richardson.james.bukkit.timedrestore.utilities</shadedPattern>
+                    </relocation>
+                    <relocation>
+                      <pattern>net.sf.cron4j</pattern>
+                      <shadedPattern>name.richardson.james.bukkit.timedrestore.utilities.cron4j</shadedPattern>
                     </relocation>
                   </relocations>
                   <minimizeJar>true</minimizeJar>

@@ -1,0 +1,4 @@
+Changelog for TimedRestore (v1.0.0-SNAPSHOT)
+
+2013-05-28 18:11:06 +0100    write readme (James Richardson)
+2013-05-28 17:40:51 +0100    initial commit (James Richardson)
