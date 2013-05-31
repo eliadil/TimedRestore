@@ -95,18 +95,22 @@ public class BukkitRestoreTask extends AbstractRestoreTask {
 				success = true;
 			} catch (final InvalidSnapshotException e) {
 				AbstractRestoreTask.LOGGER.log(Level.WARNING, "Snapshot `{0}` does not exist!", this.getConfiguration().getSnapshotDate());
+				success = false;
 			} catch (final IOException e) {
 				AbstractRestoreTask.LOGGER.log(Level.WARNING, "Unable to restore region.");
 				e.printStackTrace();
+				success = false;
 			} catch (final DataException e) {
 				AbstractRestoreTask.LOGGER.log(Level.WARNING, "Unable to restore region.");
 				e.printStackTrace();
+				success = false;
 			} catch (final InvalidWorldException e) {
 				AbstractRestoreTask.LOGGER.log(Level.WARNING, "World `{0}` does not exist!", e.getWorldName());
+				success = false;
 			} catch (final InvalidRegionException e) {
 				final Object[] params = { e.getWorldName(), e.getRegionName() };
 				AbstractRestoreTask.LOGGER.log(Level.WARNING, "Region `{0}:{1}` does not exist!", params);
-				e.printStackTrace();
+				success = false;
 			} finally {
 				if (!success) {
 					CronRestoreTask.deschedule(this.getConfiguration().getSchedule());
