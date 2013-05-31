@@ -18,8 +18,10 @@
  ******************************************************************************/
 package name.richardson.james.bukkit.timedrestore.scheduler;
 
+import java.util.logging.Logger;
+
 import name.richardson.james.bukkit.timedrestore.persistence.TaskConfigurationEntry;
-import name.richardson.james.bukkit.utilities.logging.Logger;
+import name.richardson.james.bukkit.utilities.logging.PluginLogger;
 
 /**
  * This class provides a default implementation of the {@link RestoreTask}
@@ -29,7 +31,7 @@ import name.richardson.james.bukkit.utilities.logging.Logger;
  */
 public abstract class AbstractRestoreTask implements RestoreTask {
 
-	final protected static Logger logger = new Logger(AbstractRestoreTask.class);
+	final protected static Logger LOGGER = PluginLogger.getLogger(AbstractRestoreTask.class);
 
 	private final TaskConfigurationEntry configuration;
 

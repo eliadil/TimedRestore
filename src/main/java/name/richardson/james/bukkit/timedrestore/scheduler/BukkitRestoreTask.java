@@ -70,7 +70,7 @@ public class BukkitRestoreTask extends AbstractRestoreTask {
 	 */
 	public void deschedule() {
 		BukkitRestoreTask.scheduler.cancelTask(this.id);
-		AbstractRestoreTask.logger.log(Level.FINE, "Descheduled BukkitTask");
+		AbstractRestoreTask.LOGGER.log(Level.FINE, "Descheduled BukkitTask");
 	}
 
 	/**
@@ -88,24 +88,24 @@ public class BukkitRestoreTask extends AbstractRestoreTask {
 	public void run() {
 		boolean success = false;
 		for (final String regionName : this.getConfiguration().getRegions()) {
-			AbstractRestoreTask.logger.log(Level.INFO, "Restoring region: " + regionName);
+			AbstractRestoreTask.LOGGER.log(Level.INFO, "Restoring region: " + regionName);
 			try {
 				final RestoreRegion region = new RestoreRegion(this.getConfiguration().getWorldName(), regionName);
 				region.restore(this.getConfiguration().getSnapshotDate());
 				success = true;
 			} catch (final InvalidSnapshotException e) {
-				AbstractRestoreTask.logger.log(Level.WARNING, "Snapshot `{0}` does not exist!", this.getConfiguration().getSnapshotDate());
+				AbstractRestoreTask.LOGGER.log(Level.WARNING, "Snapshot `{0}` does not exist!", this.getConfiguration().getSnapshotDate());
 			} catch (final IOException e) {
-				AbstractRestoreTask.logger.log(Level.WARNING, "Unable to restore region.");
+				AbstractRestoreTask.LOGGER.log(Level.WARNING, "Unable to restore region.");
 				e.printStackTrace();
 			} catch (final DataException e) {
-				AbstractRestoreTask.logger.log(Level.WARNING, "Unable to restore region.");
+				AbstractRestoreTask.LOGGER.log(Level.WARNING, "Unable to restore region.");
 				e.printStackTrace();
 			} catch (final InvalidWorldException e) {
-				AbstractRestoreTask.logger.log(Level.WARNING, "World `{0}` does not exist!", e.getWorldName());
+				AbstractRestoreTask.LOGGER.log(Level.WARNING, "World `{0}` does not exist!", e.getWorldName());
 			} catch (final InvalidRegionException e) {
 				final Object[] params = { e.getWorldName(), e.getRegionName() };
-				AbstractRestoreTask.logger.log(Level.WARNING, "Region `{0}:{1}` does not exist!", params);
+				AbstractRestoreTask.LOGGER.log(Level.WARNING, "Region `{0}:{1}` does not exist!", params);
 				e.printStackTrace();
 			} finally {
 				if (!success) {
@@ -125,7 +125,7 @@ public class BukkitRestoreTask extends AbstractRestoreTask {
 	public void schedule() {
 		if (this.plugin.isEnabled()) {
 			this.id = BukkitRestoreTask.scheduler.scheduleSyncDelayedTask(this.plugin, this);
-			AbstractRestoreTask.logger.log(Level.FINE, "Scheduled BukkitTask");
+			AbstractRestoreTask.LOGGER.log(Level.FINE, "Scheduled BukkitTask");
 		}
 	}
 

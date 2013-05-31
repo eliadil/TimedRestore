@@ -21,10 +21,11 @@ package name.richardson.james.bukkit.timedrestore.persistence;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.bukkit.configuration.ConfigurationSection;
 
-import name.richardson.james.bukkit.utilities.logging.Logger;
+import name.richardson.james.bukkit.utilities.logging.PluginLogger;
 
 /**
  * The class TaskConfigurationEntry is responsible for representing the values
@@ -32,7 +33,7 @@ import name.richardson.james.bukkit.utilities.logging.Logger;
  */
 public class TaskConfigurationEntry {
 
-	public static final Logger logger = new Logger(TaskConfigurationEntry.class);
+	private static final Logger LOGGER = PluginLogger.getLogger(TaskConfigurationEntry.class);
 
 	public static final String REGION_KEY = "regions";
 	public static final String SCHEDULE_KEY = "schedule";
@@ -56,7 +57,7 @@ public class TaskConfigurationEntry {
 		this.worldName = section.getString(TaskConfigurationEntry.WORLD_KEY);
 		this.date = (section.getString(TaskConfigurationEntry.SNAPSHOT_KEY));
 		this.regions = new LinkedHashSet<String>(section.getStringList(TaskConfigurationEntry.REGION_KEY));
-		TaskConfigurationEntry.logger.log(Level.FINEST, this.toString());
+		TaskConfigurationEntry.LOGGER.log(Level.CONFIG, this.toString());
 	}
 
 	public Set<String> getRegions() {

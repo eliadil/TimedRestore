@@ -5,5 +5,5 @@ version: ${project.version}
 depend: [WorldEdit, WorldGuard]
 commands:
   tr:
-    description: 'Additional ban commands'
-    usage: '/bh [check|history|purge|recent|reload]'
+    description: 'TimedRestore command'
+    usage: '/tr'

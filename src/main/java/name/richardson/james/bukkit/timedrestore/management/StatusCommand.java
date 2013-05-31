@@ -25,7 +25,6 @@ import org.bukkit.command.CommandSender;
 import name.richardson.james.bukkit.timedrestore.scheduler.CronRestoreTask;
 import name.richardson.james.bukkit.utilities.command.AbstractCommand;
 import name.richardson.james.bukkit.utilities.command.CommandPermissions;
-import name.richardson.james.bukkit.utilities.localisation.ResourceBundles;
 
 /**
  * This command returns the status of the cron scheduler on request.
@@ -37,7 +36,7 @@ public class StatusCommand extends AbstractCommand {
 	 * Instantiates a new status command.
 	 */
 	public StatusCommand() {
-		super(ResourceBundles.MESSAGES);
+		super();
 	}
 
 	/*
@@ -49,9 +48,9 @@ public class StatusCommand extends AbstractCommand {
 	 */
 	public void execute(final List<String> arguments, final CommandSender sender) {
 		if (CronRestoreTask.isSchedulerStarted()) {
-			sender.sendMessage(this.getMessage("scheduler-running"));
+			sender.sendMessage(this.getMessage("notice.scheduler-running"));
 		} else {
-			sender.sendMessage(this.getMessage("scheduler-not-running"));
+			sender.sendMessage(this.getMessage("notice.scheduler-not-running"));
 		}
 	}
 

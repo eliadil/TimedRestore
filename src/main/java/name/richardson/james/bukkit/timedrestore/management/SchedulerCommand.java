@@ -26,7 +26,6 @@ import name.richardson.james.bukkit.timedrestore.scheduler.CronRestoreTask;
 import name.richardson.james.bukkit.utilities.command.AbstractCommand;
 import name.richardson.james.bukkit.utilities.command.CommandMatchers;
 import name.richardson.james.bukkit.utilities.command.CommandPermissions;
-import name.richardson.james.bukkit.utilities.localisation.ResourceBundles;
 import name.richardson.james.bukkit.utilities.matchers.BooleanMatcher;
 
 /**
@@ -43,7 +42,7 @@ public class SchedulerCommand extends AbstractCommand {
 	 * Instantiates a new scheduler command.
 	 */
 	public SchedulerCommand() {
-		super(ResourceBundles.MESSAGES);
+		super();
 	}
 
 	/*
@@ -60,10 +59,10 @@ public class SchedulerCommand extends AbstractCommand {
 			final boolean state = Boolean.parseBoolean(arguments.get(0).toUpperCase());
 			if (state) {
 				CronRestoreTask.start();
-				sender.sendMessage(this.getMessage("schedulercommand.started"));
+				sender.sendMessage(this.getMessage("notice.scheduler-started"));
 			} else {
 				CronRestoreTask.stop();
-				sender.sendMessage(this.getMessage("schedulercommand.stopped"));
+				sender.sendMessage(this.getMessage("notice.scheduler-stopped"));
 			}
 		}
 	}

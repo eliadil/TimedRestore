@@ -91,7 +91,7 @@ public class CronRestoreTask extends AbstractRestoreTask {
 	 */
 	public void deschedule() {
 		CronRestoreTask.scheduler.deschedule(this.getConfiguration().getSchedule());
-		AbstractRestoreTask.logger.log(Level.FINE, "Descheduled CronTimer at " + this.getConfiguration().getSchedule());
+		AbstractRestoreTask.LOGGER.log(Level.FINE, "Descheduled CronTimer at " + this.getConfiguration().getSchedule());
 	}
 
 	/**
@@ -114,6 +114,6 @@ public class CronRestoreTask extends AbstractRestoreTask {
 		if (!CronRestoreTask.scheduler.isStarted()) {
 			CronRestoreTask.scheduler.start();
 		}
-		AbstractRestoreTask.logger.log(Level.FINE, "Scheduled CronTimer at " + this.getConfiguration().getSchedule());
+		AbstractRestoreTask.LOGGER.log(Level.FINE, "Scheduled CronTimer at " + this.getConfiguration().getSchedule());
 	}
 }
