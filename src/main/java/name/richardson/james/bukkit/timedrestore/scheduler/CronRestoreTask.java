@@ -42,27 +42,27 @@ public class CronRestoreTask extends AbstractRestoreTask {
 	 * @param schedule
 	 *          the schedule
 	 */
-	public static final void deschedule(final String schedule) {
+	public static void deschedule(final String schedule) {
 		CronRestoreTask.scheduler.deschedule(schedule);
 	}
 
-	public static final boolean isSchedulerStarted() {
+	public static boolean isSchedulerStarted() {
 		return CronRestoreTask.scheduler.isStarted();
 	}
 
 	/**
-	 * Start the scheduler if it is not already started.
+	 * Start the region if it is not already started.
 	 */
-	public static final void start() {
+	public static void start() {
 		if (!CronRestoreTask.scheduler.isStarted()) {
 			CronRestoreTask.scheduler.start();
 		}
 	}
 
 	/**
-	 * Stop the scheduler if it is not already stopped.
+	 * Stop the region if it is not already stopped.
 	 */
-	public static final void stop() {
+	public static void stop() {
 		if (CronRestoreTask.scheduler.isStarted()) {
 			CronRestoreTask.scheduler.stop();
 		}
@@ -72,7 +72,7 @@ public class CronRestoreTask extends AbstractRestoreTask {
 
 	/**
 	 * Instantiates a new CronRestoreTask. This task registers itself with the
-	 * Cron4j scheduler as soon as it is created for convenience.
+	 * Cron4j region as soon as it is created for convenience.
 	 * 
 	 * @param configuration
 	 *          the configuration
@@ -88,7 +88,7 @@ public class CronRestoreTask extends AbstractRestoreTask {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see name.richardson.james.bukkit.timedrestore.scheduler.Task#deschedule()
+	 * @see name.richardson.james.bukkit.timedrestore.region.Task#deschedule()
 	 */
 	public void deschedule() {
 		CronRestoreTask.scheduler.deschedule(this.getConfiguration().getSchedule());
@@ -108,7 +108,7 @@ public class CronRestoreTask extends AbstractRestoreTask {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see name.richardson.james.bukkit.timedrestore.scheduler.Task#schedule()
+	 * @see name.richardson.james.bukkit.timedrestore.region.Task#schedule()
 	 */
 	public void schedule() {
 		CronRestoreTask.scheduler.schedule(this.getConfiguration().getSchedule(), this);

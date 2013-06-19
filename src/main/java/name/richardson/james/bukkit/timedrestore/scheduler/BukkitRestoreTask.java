@@ -51,7 +51,7 @@ public class BukkitRestoreTask extends AbstractRestoreTask {
 
 	/**
 	 * Instantiates a new BukkitRestoreTask. This task registers itself with the
-	 * Bukkit scheduler as soon as it is created.
+	 * Bukkit region as soon as it is created.
 	 * 
 	 * @param configuration
 	 *          the backing configuration for this task
@@ -67,7 +67,7 @@ public class BukkitRestoreTask extends AbstractRestoreTask {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see name.richardson.james.bukkit.timedrestore.scheduler.Task#deschedule()
+	 * @see name.richardson.james.bukkit.timedrestore.region.Task#deschedule()
 	 */
 	public void deschedule() {
 		BukkitRestoreTask.scheduler.cancelTask(this.id);

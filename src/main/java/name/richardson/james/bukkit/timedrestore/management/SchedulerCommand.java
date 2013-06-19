@@ -26,10 +26,11 @@ import name.richardson.james.bukkit.timedrestore.scheduler.CronRestoreTask;
 import name.richardson.james.bukkit.utilities.command.AbstractCommand;
 import name.richardson.james.bukkit.utilities.command.CommandMatchers;
 import name.richardson.james.bukkit.utilities.command.CommandPermissions;
+import name.richardson.james.bukkit.utilities.localisation.LocalisedCommandSender;
 import name.richardson.james.bukkit.utilities.matchers.BooleanMatcher;
 
 /**
- * This command sets the status of the cron scheduler.
+ * This command sets the status of the cron region.
  * 
  * Currently two options are available, start and stop.
  * 
@@ -37,13 +38,6 @@ import name.richardson.james.bukkit.utilities.matchers.BooleanMatcher;
 @CommandPermissions(permissions = { "timedrestore.scheduler" })
 @CommandMatchers(matchers = { BooleanMatcher.class })
 public class SchedulerCommand extends AbstractCommand {
-
-	/**
-	 * Instantiates a new scheduler command.
-	 */
-	public SchedulerCommand() {
-		super();
-	}
 
 	/*
 	 * (non-Javadoc)
@@ -53,16 +47,17 @@ public class SchedulerCommand extends AbstractCommand {
 	 * .List, org.bukkit.command.CommandSender)
 	 */
 	public void execute(final List<String> arguments, final CommandSender sender) {
+		LocalisedCommandSender lsender = new LocalisedCommandSender(sender, this.localisation);
 		if (arguments.isEmpty()) {
-			sender.sendMessage(this.getMessage("error.must-specify-boolean"));
+			lsender.error("must-specify-boolean");
 		} else {
 			final boolean state = Boolean.parseBoolean(arguments.get(0).toUpperCase());
 			if (state) {
 				CronRestoreTask.start();
-				sender.sendMessage(this.getMessage("notice.scheduler-started"));
+				lsender.info("region-started");
 			} else {
 				CronRestoreTask.stop();
-				sender.sendMessage(this.getMessage("notice.scheduler-stopped"));
+				lsender.info("region-stopped");
 			}
 		}
 	}

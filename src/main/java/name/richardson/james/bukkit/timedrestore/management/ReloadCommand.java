@@ -26,6 +26,7 @@ import org.bukkit.command.CommandSender;
 import name.richardson.james.bukkit.timedrestore.TimedRestorePlugin;
 import name.richardson.james.bukkit.utilities.command.AbstractCommand;
 import name.richardson.james.bukkit.utilities.command.CommandPermissions;
+import name.richardson.james.bukkit.utilities.localisation.LocalisedCommandSender;
 
 /**
  * This command reloads the configuration of the plugin on request.
@@ -42,7 +43,6 @@ public class ReloadCommand extends AbstractCommand {
 	 *          the plugin
 	 */
 	public ReloadCommand(final TimedRestorePlugin plugin) {
-		super();
 		this.plugin = plugin;
 	}
 
@@ -54,11 +54,12 @@ public class ReloadCommand extends AbstractCommand {
 	 * .List, org.bukkit.command.CommandSender)
 	 */
 	public void execute(final List<String> arguments, final CommandSender sender) {
+		LocalisedCommandSender lsender = new LocalisedCommandSender(sender, this.localisation);
 		try {
 			this.plugin.reloadConfiguration();
-			sender.sendMessage(this.getMessage("notice.reload-success"));
+			lsender.info("success");
 		} catch (final IOException e) {
-			sender.sendMessage(this.getMessage("notice.reload-failure"));
+			lsender.error("failure");
 		}
 	}
 

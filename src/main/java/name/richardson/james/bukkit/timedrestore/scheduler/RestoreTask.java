@@ -27,14 +27,14 @@ import name.richardson.james.bukkit.timedrestore.persistence.TaskConfigurationEn
 public interface RestoreTask extends Runnable {
 
 	/**
-	 * Deschedule this task from the scheduler.
+	 * Deschedule this task from the region.
 	 */
 	public void deschedule();
 
 	public TaskConfigurationEntry getConfiguration();
 
 	/**
-	 * Schedule this task with the scheduler.
+	 * Schedule this task with the region.
 	 */
 	public void schedule();
 

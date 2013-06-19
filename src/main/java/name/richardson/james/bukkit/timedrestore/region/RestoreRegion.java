@@ -19,9 +19,7 @@
 package name.richardson.james.bukkit.timedrestore.region;
 
 import java.io.IOException;
-import java.text.MessageFormat;
 import java.util.List;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 import org.bukkit.Bukkit;
@@ -41,9 +39,8 @@ import com.sk89q.worldedit.snapshots.SnapshotRestore;
 import com.sk89q.worldguard.protection.GlobalRegionManager;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 
-import name.richardson.james.bukkit.utilities.formatters.ColourFormatter;
-import name.richardson.james.bukkit.utilities.localisation.Localised;
-import name.richardson.james.bukkit.utilities.localisation.ResourceBundles;
+import name.richardson.james.bukkit.utilities.localisation.LocalisedCommandSender;
+import name.richardson.james.bukkit.utilities.localisation.PluginResourceBundle;
 
 /**
  * This class represents a region of the world to be restored. It is responsible
@@ -51,9 +48,9 @@ import name.richardson.james.bukkit.utilities.localisation.ResourceBundles;
  * {@link GlobalRegionManager} and then finding an appropriate snapshot in the
  * {@link SnapshotRepository} to use.
  */
-public class RestoreRegion implements Localised {
+public class RestoreRegion {
 
-	private static final ResourceBundle localisation = ResourceBundle.getBundle(ResourceBundles.MESSAGES.getBundleName());
+	public static final ResourceBundle LOCALISATION = PluginResourceBundle.getBundle(RestoreRegion.class);
 
 	private static GlobalRegionManager manager;
 	private static SnapshotRepository snapshots;
@@ -109,34 +106,6 @@ public class RestoreRegion implements Localised {
 		this.region = new Polygonal2DRegion(localWorld, worldGuardRegion.getPoints(), 0, world.getMaxHeight());
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * name.richardson.james.bukkit.utilities.localisation.Localised#getMessage
-	 * (java.lang.String)
-	 */
-	public String getMessage(final String key) {
-		String message = RestoreRegion.localisation.getString(key);
-		message = ColourFormatter.replace(message);
-		return message;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * name.richardson.james.bukkit.utilities.localisation.Localised#getMessage
-	 * (java.lang.String, java.lang.Object[])
-	 */
-	public String getMessage(final String key, final Object... elements) {
-		final MessageFormat formatter = new MessageFormat(RestoreRegion.localisation.getString(key));
-		formatter.setLocale(Locale.getDefault());
-		String message = formatter.format(elements);
-		message = ColourFormatter.replace(message);
-		return message;
-	}
-
 	/**
 	 * Move any players who are currently in region to be restored to safety.
 	 * 
@@ -150,9 +119,10 @@ public class RestoreRegion implements Localised {
 			final double z = player.getLocation().getZ();
 			final Vector vector = new Vector(x, y, z);
 			if (this.region.contains(vector)) {
-				player.sendMessage(this.getMessage("area-being-restored"));
+				LocalisedCommandSender lsender = new LocalisedCommandSender(player, LOCALISATION);
+				lsender.warning("area-being-restored");
 				player.teleport(player.getWorld().getSpawnLocation());
-				player.sendMessage(this.getMessage("teleported-to-safety"));
+				lsender.info("teleported-to-safety");
 			}
 		}
 	}

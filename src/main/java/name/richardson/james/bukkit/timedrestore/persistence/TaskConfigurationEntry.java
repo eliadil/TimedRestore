@@ -25,7 +25,7 @@ import java.util.logging.Logger;
 
 import org.bukkit.configuration.ConfigurationSection;
 
-import name.richardson.james.bukkit.utilities.logging.PluginLogger;
+import name.richardson.james.bukkit.utilities.logging.LocalisedLogger;
 
 /**
  * The class TaskConfigurationEntry is responsible for representing the values
@@ -33,7 +33,7 @@ import name.richardson.james.bukkit.utilities.logging.PluginLogger;
  */
 public class TaskConfigurationEntry {
 
-	private static final Logger LOGGER = PluginLogger.getLogger(TaskConfigurationEntry.class);
+	private static final Logger LOGGER = LocalisedLogger.getLogger(TaskConfigurationEntry.class, null);
 
 	public static final String REGION_KEY = "regions";
 	public static final String SCHEDULE_KEY = "schedule";
@@ -78,7 +78,7 @@ public class TaskConfigurationEntry {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.lang.Object#toString()
 	 */
 	@Override

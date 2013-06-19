@@ -25,19 +25,13 @@ import org.bukkit.command.CommandSender;
 import name.richardson.james.bukkit.timedrestore.scheduler.CronRestoreTask;
 import name.richardson.james.bukkit.utilities.command.AbstractCommand;
 import name.richardson.james.bukkit.utilities.command.CommandPermissions;
+import name.richardson.james.bukkit.utilities.localisation.LocalisedCommandSender;
 
 /**
- * This command returns the status of the cron scheduler on request.
+ * This command returns the status of the cron region on request.
  */
 @CommandPermissions(permissions = { "timedrestore.status" })
 public class StatusCommand extends AbstractCommand {
-
-	/**
-	 * Instantiates a new status command.
-	 */
-	public StatusCommand() {
-		super();
-	}
 
 	/*
 	 * (non-Javadoc)
@@ -47,10 +41,11 @@ public class StatusCommand extends AbstractCommand {
 	 * .List, org.bukkit.command.CommandSender)
 	 */
 	public void execute(final List<String> arguments, final CommandSender sender) {
+		LocalisedCommandSender lsender = new LocalisedCommandSender(sender, this.localisation);
 		if (CronRestoreTask.isSchedulerStarted()) {
-			sender.sendMessage(this.getMessage("notice.scheduler-running"));
+			lsender.info("region-started");
 		} else {
-			sender.sendMessage(this.getMessage("notice.scheduler-not-running"));
+			lsender.warning("region-stopped");
 		}
 	}
 

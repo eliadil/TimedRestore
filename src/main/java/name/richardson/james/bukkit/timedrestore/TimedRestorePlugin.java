@@ -24,6 +24,7 @@ import java.io.InputStream;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
 
@@ -43,6 +44,7 @@ import name.richardson.james.bukkit.timedrestore.region.RestoreRegion;
 import name.richardson.james.bukkit.timedrestore.scheduler.CronRestoreTask;
 import name.richardson.james.bukkit.timedrestore.scheduler.RestoreTask;
 import name.richardson.james.bukkit.utilities.command.CommandManager;
+import name.richardson.james.bukkit.utilities.logging.LocalisedLogger;
 import name.richardson.james.bukkit.utilities.plugin.AbstractPlugin;
 
 // TODO: Auto-generated Javadoc
@@ -50,6 +52,8 @@ import name.richardson.james.bukkit.utilities.plugin.AbstractPlugin;
  * The Class TimedRestorePlugin and the main entry point for TimedRestore.
  */
 public class TimedRestorePlugin extends AbstractPlugin {
+
+	private final static Logger LOGGER = LocalisedLogger.getLogger(TimedRestorePlugin.class);
 
 	private final Set<RestoreTask> tasks = new LinkedHashSet<RestoreTask>();
 
@@ -77,7 +81,7 @@ public class TimedRestorePlugin extends AbstractPlugin {
 			this.registerCommands();
 			this.updatePlugin();
 		} catch (final Exception e) {
-			this.getCustomLogger().log(Level.SEVERE, "Unable to enable TimedRestore!");
+			LOGGER.log(Level.SEVERE, "unable-to-load-plugin");
 			e.printStackTrace();
 			success = false;
 		} finally {
@@ -134,7 +138,7 @@ public class TimedRestorePlugin extends AbstractPlugin {
 	 */
 	private void initaliseWorldEdit() throws MissingComponentException {
 		final WorldEditPlugin plugin = (WorldEditPlugin) Bukkit.getPluginManager().getPlugin("WorldEdit");
-		this.getCustomLogger().log(Level.CONFIG, "Using " + plugin.getDescription().getFullName());
+		LOGGER.log(Level.CONFIG, "using-plugin", plugin.getDescription().getFullName());
 		RestoreRegion.setSnapshotRepository(plugin.getLocalConfiguration().snapshotRepo);
 		RestoreRegion.setLocalWorlds(plugin.getServerInterface().getWorlds());
 	}
@@ -149,7 +153,7 @@ public class TimedRestorePlugin extends AbstractPlugin {
 	 */
 	private void initaliseWorldGuard() throws MissingComponentException {
 		final WorldGuardPlugin plugin = (WorldGuardPlugin) Bukkit.getPluginManager().getPlugin("WorldGuard");
-		this.getCustomLogger().log(Level.CONFIG, "Using " + plugin.getDescription().getFullName());
+		LOGGER.log(Level.CONFIG, "using-plugin", plugin.getDescription().getFullName());
 		RestoreRegion.setRegionManager(plugin.getGlobalRegionManager());
 	}
 
@@ -157,7 +161,7 @@ public class TimedRestorePlugin extends AbstractPlugin {
 	 * Register all commands associated with this plugin.
 	 */
 	private void registerCommands() {
-		final CommandManager commandManager = new CommandManager("tr");
+		final CommandManager commandManager = new CommandManager("tr", this.getDescription());
 		commandManager.addCommand(new ReloadCommand(this));
 		commandManager.addCommand(new SchedulerCommand());
 		commandManager.addCommand(new StatusCommand());
