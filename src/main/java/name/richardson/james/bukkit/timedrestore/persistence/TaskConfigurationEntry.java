@@ -1,21 +1,22 @@
 /*******************************************************************************
  * Copyright (c) 2013 James Richardson
- * 
+ *
  * TaskConfigurationEntry.java is part of TimedRestore.
- * 
+ *
  * TimedRestore is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- * 
+ *
  * TimedRestore is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * TimedRestore. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
+
 package name.richardson.james.bukkit.timedrestore.persistence;
 
 import java.util.LinkedHashSet;
@@ -28,29 +29,27 @@ import org.bukkit.configuration.ConfigurationSection;
 import name.richardson.james.bukkit.utilities.logging.LocalisedLogger;
 
 /**
- * The class TaskConfigurationEntry is responsible for representing the values
- * in a individual {@link ConfigurationSection} for use elsewhere in the plugin.
+ * The class TaskConfigurationEntry is responsible for representing the values in a individual {@link
+ * ConfigurationSection} for use elsewhere in the plugin.
  */
 public class TaskConfigurationEntry {
-
-	private static final Logger LOGGER = LocalisedLogger.getLogger(TaskConfigurationEntry.class, null);
 
 	public static final String REGION_KEY = "regions";
 	public static final String SCHEDULE_KEY = "schedule";
 	public static final String SNAPSHOT_KEY = "snapshot";
 	public static final String WORLD_KEY = "world";
 
-	private final String schedule;
+	private static final Logger LOGGER = LocalisedLogger.getLogger(TaskConfigurationEntry.class, null);
+
 	private final String date;
 	private final Set<String> regions;
+	private final String schedule;
 	private final String worldName;
 
 	/**
-	 * Instantiates a new task configuration entry based on an underlying
-	 * {@link ConfigurationSection}.
-	 * 
-	 * @param section
-	 *          the section to use as the backing store
+	 * Instantiates a new task configuration entry based on an underlying {@link ConfigurationSection}.
+	 *
+	 * @param section the section to use as the backing store
 	 */
 	public TaskConfigurationEntry(final ConfigurationSection section) {
 		this.schedule = section.getString(TaskConfigurationEntry.SCHEDULE_KEY);

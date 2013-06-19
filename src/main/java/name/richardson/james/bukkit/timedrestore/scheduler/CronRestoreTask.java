@@ -1,21 +1,22 @@
 /*******************************************************************************
  * Copyright (c) 2013 James Richardson
- * 
+ *
  * CronRestoreTask.java is part of TimedRestore.
- * 
+ *
  * TimedRestore is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- * 
+ *
  * TimedRestore is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * TimedRestore. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
+
 package name.richardson.james.bukkit.timedrestore.scheduler;
 
 import it.sauronsoftware.cron4j.Scheduler;
@@ -27,22 +28,22 @@ import org.bukkit.plugin.Plugin;
 import name.richardson.james.bukkit.timedrestore.persistence.TaskConfigurationEntry;
 
 /**
- * This {@link RestoreTask} implementation is responsible for the scheduling of
- * the task itself. While {@link BukkitRestoreTask} is responsible for the
- * restore , this class is responsible for deciding when it happens and creating
- * a {@link BukkitRestoreTask} when the time is right.
+ * This {@link RestoreTask} implementation is responsible for the scheduling of the task itself. While {@link
+ * BukkitRestoreTask} is responsible for the restore , this class is responsible for deciding when it happens and
+ * creating a {@link BukkitRestoreTask} when the time is right.
  */
 public class CronRestoreTask extends AbstractRestoreTask {
 
 	final private static Scheduler scheduler = new Scheduler();
 
+	final private Plugin plugin;
+
 	private String id;
 
 	/**
 	 * Deschedule any task schedule at a specific time from the {@link Scheduler}.
-	 * 
-	 * @param schedule
-	 *          the schedule
+	 *
+	 * @param schedule the schedule
 	 */
 	public static void deschedule(final String schedule) {
 		CronRestoreTask.scheduler.deschedule(schedule);
@@ -70,16 +71,12 @@ public class CronRestoreTask extends AbstractRestoreTask {
 		}
 	}
 
-	final private Plugin plugin;
-
 	/**
-	 * Instantiates a new CronRestoreTask. This task registers itself with the
-	 * Cron4j region as soon as it is created for convenience.
-	 * 
-	 * @param configuration
-	 *          the configuration
-	 * @param plugin
-	 *          the plugin
+	 * Instantiates a new CronRestoreTask. This task registers itself with the Cron4j region as soon as it is created for
+	 * convenience.
+	 *
+	 * @param configuration the configuration
+	 * @param plugin        the plugin
 	 */
 	public CronRestoreTask(final TaskConfigurationEntry configuration, final Plugin plugin) {
 		super(configuration);
@@ -98,10 +95,8 @@ public class CronRestoreTask extends AbstractRestoreTask {
 	}
 
 	/**
-	 * Start the restore operation by creating a {@link BukkitRestoreTask} with
-	 * the {@link TaskConfigurationEntry} as the parameters. The
-	 * {@link BukkitRestoreTask} handles the actual restore operation as soon as
-	 * possible.
+	 * Start the restore operation by creating a {@link BukkitRestoreTask} with the {@link TaskConfigurationEntry} as the
+	 * parameters. The {@link BukkitRestoreTask} handles the actual restore operation as soon as possible.
 	 */
 	public void run() {
 		new BukkitRestoreTask(this.getConfiguration(), this.plugin, this);
