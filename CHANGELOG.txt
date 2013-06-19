@@ -1,5 +1,6 @@
 Changelog for TimedRestore (v1.0.1-SNAPSHOT)
 
+2013-06-19 20:01:24 +0100    automatically deschedule failing restore commands (James Richardson)
 2013-06-19 19:57:14 +0100    updated to use BU 6.0.0 (James Richardson)
 
 v1.0.0

@@ -54,10 +54,10 @@ public class SchedulerCommand extends AbstractCommand {
 			final boolean state = Boolean.parseBoolean(arguments.get(0).toUpperCase());
 			if (state) {
 				CronRestoreTask.start();
-				lsender.info("region-started");
+				lsender.info("scheduler-started");
 			} else {
 				CronRestoreTask.stop();
-				lsender.info("region-stopped");
+				lsender.info("scheduler-stopped");
 			}
 		}
 	}

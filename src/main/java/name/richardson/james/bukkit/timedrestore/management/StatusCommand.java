@@ -43,9 +43,9 @@ public class StatusCommand extends AbstractCommand {
 	public void execute(final List<String> arguments, final CommandSender sender) {
 		LocalisedCommandSender lsender = new LocalisedCommandSender(sender, this.localisation);
 		if (CronRestoreTask.isSchedulerStarted()) {
-			lsender.info("region-started");
+			lsender.info("scheduler-started");
 		} else {
-			lsender.warning("region-stopped");
+			lsender.warning("scheduler-stopped");
 		}
 	}
 

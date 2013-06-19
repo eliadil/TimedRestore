@@ -46,6 +46,8 @@ public class BukkitRestoreTask extends AbstractRestoreTask {
 
 	final private static BukkitScheduler scheduler = Bukkit.getScheduler();
 
+	private CronRestoreTask cronTask;
+
 	private int id;
 
 	final private Plugin plugin;
@@ -59,9 +61,10 @@ public class BukkitRestoreTask extends AbstractRestoreTask {
 	 * @param plugin
 	 *          the plugin
 	 */
-	public BukkitRestoreTask(final TaskConfigurationEntry configuration, final Plugin plugin) {
+	public BukkitRestoreTask(final TaskConfigurationEntry configuration, final Plugin plugin, final CronRestoreTask cronTask) {
 		super(configuration);
 		this.plugin = plugin;
+		this.cronTask = cronTask;
 		this.schedule();
 	}
 
@@ -95,19 +98,22 @@ public class BukkitRestoreTask extends AbstractRestoreTask {
 				region.restore(this.getConfiguration().getSnapshotDate());
 			} catch (final InvalidSnapshotException e) {
 				AbstractRestoreTask.LOGGER.log(Level.WARNING, "Snapshot `{0}` does not exist!", this.getConfiguration().getSnapshotDate());
+				this.cronTask.deschedule();
 			} catch (final IOException e) {
 				AbstractRestoreTask.LOGGER.log(Level.WARNING, "Unable to restore region.");
 				e.printStackTrace();
+				this.cronTask.deschedule();
 			} catch (final DataException e) {
 				AbstractRestoreTask.LOGGER.log(Level.WARNING, "Unable to restore region.");
 				e.printStackTrace();
+				this.cronTask.deschedule();
 			} catch (final InvalidWorldException e) {
 				AbstractRestoreTask.LOGGER.log(Level.WARNING, "World `{0}` does not exist!", e.getWorldName());
-				CronRestoreTask.deschedule(this.getConfiguration().getSchedule());
+				this.cronTask.deschedule();
 			} catch (final InvalidRegionException e) {
 				final Object[] params = { e.getWorldName(), e.getRegionName() };
 				AbstractRestoreTask.LOGGER.log(Level.WARNING, "Region `{0}:{1}` does not exist!", params);
-				CronRestoreTask.deschedule(this.getConfiguration().getSchedule());
+				this.cronTask.deschedule();
 			}
 		}
 	}

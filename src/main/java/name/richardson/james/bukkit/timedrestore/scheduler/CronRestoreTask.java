@@ -36,6 +36,8 @@ public class CronRestoreTask extends AbstractRestoreTask {
 
 	final private static Scheduler scheduler = new Scheduler();
 
+	private String id;
+
 	/**
 	 * Deschedule any task schedule at a specific time from the {@link Scheduler}.
 	 * 
@@ -91,7 +93,7 @@ public class CronRestoreTask extends AbstractRestoreTask {
 	 * @see name.richardson.james.bukkit.timedrestore.region.Task#deschedule()
 	 */
 	public void deschedule() {
-		CronRestoreTask.scheduler.deschedule(this.getConfiguration().getSchedule());
+		CronRestoreTask.scheduler.deschedule(this.id);
 		AbstractRestoreTask.LOGGER.log(Level.FINE, "Descheduled CronTimer at " + this.getConfiguration().getSchedule());
 	}
 
@@ -102,7 +104,7 @@ public class CronRestoreTask extends AbstractRestoreTask {
 	 * possible.
 	 */
 	public void run() {
-		new BukkitRestoreTask(this.getConfiguration(), this.plugin);
+		new BukkitRestoreTask(this.getConfiguration(), this.plugin, this);
 	}
 
 	/*
@@ -111,7 +113,7 @@ public class CronRestoreTask extends AbstractRestoreTask {
 	 * @see name.richardson.james.bukkit.timedrestore.region.Task#schedule()
 	 */
 	public void schedule() {
-		CronRestoreTask.scheduler.schedule(this.getConfiguration().getSchedule(), this);
+		this.id = CronRestoreTask.scheduler.schedule(this.getConfiguration().getSchedule(), this);
 		if (!CronRestoreTask.scheduler.isStarted()) {
 			CronRestoreTask.scheduler.start();
 		}
