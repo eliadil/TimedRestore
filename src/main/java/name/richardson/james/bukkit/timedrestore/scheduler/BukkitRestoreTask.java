@@ -25,6 +25,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitScheduler;
 
+import com.avaje.ebeaninternal.server.lib.cron.CronSchedule;
 import com.sk89q.worldedit.data.DataException;
 import com.sk89q.worldedit.snapshots.InvalidSnapshotException;
 
@@ -102,9 +103,11 @@ public class BukkitRestoreTask extends AbstractRestoreTask {
 				e.printStackTrace();
 			} catch (final InvalidWorldException e) {
 				AbstractRestoreTask.LOGGER.log(Level.WARNING, "World `{0}` does not exist!", e.getWorldName());
+				CronRestoreTask.deschedule(this.getConfiguration().getSchedule());
 			} catch (final InvalidRegionException e) {
 				final Object[] params = { e.getWorldName(), e.getRegionName() };
 				AbstractRestoreTask.LOGGER.log(Level.WARNING, "Region `{0}:{1}` does not exist!", params);
+				CronRestoreTask.deschedule(this.getConfiguration().getSchedule());
 			}
 		}
 	}
