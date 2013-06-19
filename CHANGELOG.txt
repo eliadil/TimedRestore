@@ -1,5 +1,6 @@
 Changelog for TimedRestore (v1.0.1-SNAPSHOT)
 
+2013-06-19 21:54:02 +0100    change configuration defaults (James Richardson)
 2013-06-19 21:32:42 +0100    added copyright notices (James Richardson)
 2013-06-19 21:31:59 +0100    code cleanup (James Richardson)
 2013-06-19 21:28:29 +0100    allow automatic descheduling of failed tasks (James Richardson)

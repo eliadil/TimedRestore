@@ -53,7 +53,6 @@ import name.richardson.james.bukkit.utilities.plugin.AbstractPlugin;
 public class TimedRestorePlugin extends AbstractPlugin {
 
 	private final static Logger LOGGER = LocalisedLogger.getLogger(TimedRestorePlugin.class);
-
 	private final Set<RestoreTask> tasks = new LinkedHashSet<RestoreTask>();
 
 	public String getArtifactID() {
@@ -62,6 +61,12 @@ public class TimedRestorePlugin extends AbstractPlugin {
 
 	public String getVersion() {
 		return this.getDescription().getVersion();
+	}
+
+	public void onDisable() {
+		for (final RestoreTask task : this.tasks) {
+			task.deschedule();
+		}
 	}
 
 	/*
@@ -73,11 +78,25 @@ public class TimedRestorePlugin extends AbstractPlugin {
 	public void onEnable() {
 		boolean success = true;
 		try {
-			this.loadConfiguration();
 			this.initaliseWorldEdit();
 			this.initaliseWorldGuard();
 			this.setPermissions();
 			this.registerCommands();
+		} catch (final Exception e) {
+			LOGGER.log(Level.SEVERE, "unable-to-load-plugin");
+			e.printStackTrace();
+			success = false;
+		} finally {
+			if (!success) {
+				Bukkit.getPluginManager().disablePlugin(this);
+			}
+		}
+	}
+
+	public void onLoad() {
+		boolean success = true;
+		try {
+			this.loadConfiguration();
 			this.updatePlugin();
 		} catch (final Exception e) {
 			LOGGER.log(Level.SEVERE, "unable-to-load-plugin");
