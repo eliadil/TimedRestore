@@ -47,8 +47,6 @@ import name.richardson.james.bukkit.utilities.command.CommandManager;
 import name.richardson.james.bukkit.utilities.logging.LocalisedLogger;
 import name.richardson.james.bukkit.utilities.plugin.AbstractPlugin;
 
-// TODO: Auto-generated Javadoc
-
 /**
  * The Class TimedRestorePlugin and the main entry point for TimedRestore.
  */

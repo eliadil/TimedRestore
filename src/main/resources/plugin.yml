@@ -6,4 +6,4 @@ depend: [WorldEdit, WorldGuard]
 commands:
   tr:
     description: 'TimedRestore command'
-    usage: '/tr'
+    usage: 'ERROR LOADING PLUGIN - CHECK SERVER LOG'

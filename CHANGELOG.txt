@@ -1,5 +1,8 @@
 Changelog for TimedRestore (v1.0.1-SNAPSHOT)
 
+2013-06-19 21:32:42 +0100    added copyright notices (James Richardson)
+2013-06-19 21:31:59 +0100    code cleanup (James Richardson)
+2013-06-19 21:28:29 +0100    allow automatic descheduling of failed tasks (James Richardson)
 2013-06-19 20:01:24 +0100    automatically deschedule failing restore commands (James Richardson)
 2013-06-19 19:57:14 +0100    updated to use BU 6.0.0 (James Richardson)
 
