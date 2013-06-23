@@ -50,15 +50,14 @@ import name.richardson.james.bukkit.utilities.localisation.PluginResourceBundle;
  */
 public class RestoreRegion {
 
+	private static final ResourceBundle localisation = PluginResourceBundle.getBundle(RestoreRegion.class);
+	private static final LocalisedCoreColourScheme coreColourScheme = new LocalisedCoreColourScheme(RestoreRegion.localisation);
 
 	private static GlobalRegionManager manager;
 	private static SnapshotRepository snapshots;
 	private static List<LocalWorld> worlds;
 
-	private final LocalisedCoreColourScheme coreColourScheme = new LocalisedCoreColourScheme(this.localisation);
-	private final ResourceBundle localisation = PluginResourceBundle.getBundle(RestoreRegion.class);
 	private final Polygonal2DRegion region;
-
 
 	/**
 	 * Instantiates a new RestoreRegion.

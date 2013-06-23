@@ -173,6 +173,7 @@ public class TimedRestorePlugin extends AbstractPlugin {
 		commandManager.addCommand(new ReloadCommand(this));
 		commandManager.addCommand(new SchedulerCommand());
 		commandManager.addCommand(new StatusCommand());
+		getCommand("tr").setExecutor(commandManager);
 	}
 
 }
