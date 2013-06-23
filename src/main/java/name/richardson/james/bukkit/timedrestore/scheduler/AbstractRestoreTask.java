@@ -18,11 +18,7 @@
 
 package name.richardson.james.bukkit.timedrestore.scheduler;
 
-import java.util.logging.Logger;
-
 import name.richardson.james.bukkit.timedrestore.persistence.TaskConfigurationEntry;
-import name.richardson.james.bukkit.utilities.logging.LocalisedLogger;
-import name.richardson.james.bukkit.utilities.logging.PrefixedLogger;
 
 /**
  * This class provides a default implementation of the {@link RestoreTask} interface and should be inherited other
