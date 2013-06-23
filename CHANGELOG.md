@@ -1,0 +1,26 @@
+# Changelog for TimedRestore (v1.0.2-SNAPSHOT)
+
+2013-06-23 13:25:29 +0100    register command executor (James Richardson)  
+2013-06-23 13:23:06 +0100    remove double quotes (James Richardson)  
+2013-06-23 02:02:57 +0100    remove old imports (James Richardson)  
+2013-06-23 02:02:21 +0100    update to use latest library (James Richardson)  
+
+**v1.0.1**  
+2013-06-19 22:17:08 +0100    prepare for release (James Richardson)  
+2013-06-19 21:57:50 +0100    move some logic to onLoad (James Richardson)  
+2013-06-19 21:54:02 +0100    change configuration defaults (James Richardson)  
+2013-06-19 21:32:42 +0100    added copyright notices (James Richardson)  
+2013-06-19 21:31:59 +0100    code cleanup (James Richardson)  
+2013-06-19 21:28:29 +0100    allow automatic descheduling of failed tasks (James Richardson)  
+2013-06-19 20:01:24 +0100    automatically deschedule failing restore commands (James Richardson)  
+2013-06-19 19:57:14 +0100    updated to use BU 6.0.0 (James Richardson)  
+
+**v1.0.0**  
+2013-05-31 19:06:31 +0100    changed my mine on self deregistration of partially failed tasks (James Richardson)  
+2013-05-31 19:04:16 +0100    tasks now schedule themselves (James Richardson)  
+2013-05-31 18:41:12 +0100    made plugin loading more robust (James Richardson)  
+2013-05-31 18:16:14 +0100    establish automatic descheduling of failed tasks (James Richardson)  
+2013-05-31 18:15:16 +0100    update to use latest bukkit utilities changes (James Richardson)  
+2013-05-31 17:51:16 +0100    shade cron4j (James Richardson)  
+2013-05-28 18:11:06 +0100    write readme (James Richardson)  
+2013-05-28 17:40:51 +0100    initial commit (James Richardson)  
