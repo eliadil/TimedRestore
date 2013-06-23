@@ -23,9 +23,11 @@ import java.util.List;
 import org.bukkit.command.CommandSender;
 
 import name.richardson.james.bukkit.timedrestore.scheduler.CronRestoreTask;
+
+import name.richardson.james.bukkit.utilities.colours.ColourScheme;
 import name.richardson.james.bukkit.utilities.command.AbstractCommand;
 import name.richardson.james.bukkit.utilities.command.CommandPermissions;
-import name.richardson.james.bukkit.utilities.localisation.LocalisedCommandSender;
+import name.richardson.james.bukkit.utilities.localisation.LocalisedCoreColourScheme;
 
 /**
  * This command returns the status of the cron region on request.
@@ -33,19 +35,13 @@ import name.richardson.james.bukkit.utilities.localisation.LocalisedCommandSende
 @CommandPermissions(permissions = {"timedrestore.status"})
 public class StatusCommand extends AbstractCommand {
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * name.richardson.james.bukkit.utilities.command.Command#execute(java.util
-	 * .List, org.bukkit.command.CommandSender)
-	 */
+	private final LocalisedCoreColourScheme localisedColourScheme = new LocalisedCoreColourScheme(this.getResourceBundle());
+
 	public void execute(final List<String> arguments, final CommandSender sender) {
-		LocalisedCommandSender lsender = new LocalisedCommandSender(sender, this.localisation);
 		if (CronRestoreTask.isSchedulerStarted()) {
-			lsender.info("scheduler-started");
+			sender.sendMessage(localisedColourScheme.format(ColourScheme.Style.INFO, "scheduler-started"));
 		} else {
-			lsender.warning("scheduler-stopped");
+			sender.sendMessage(localisedColourScheme.format(ColourScheme.Style.WARNING, "scheduler-stopped"));
 		}
 	}
 

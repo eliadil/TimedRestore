@@ -26,6 +26,7 @@ import java.util.logging.Logger;
 import org.bukkit.configuration.ConfigurationSection;
 
 import name.richardson.james.bukkit.utilities.logging.LocalisedLogger;
+import name.richardson.james.bukkit.utilities.logging.PrefixedLogger;
 
 /**
  * The class TaskConfigurationEntry is responsible for representing the values in a individual {@link
@@ -38,9 +39,8 @@ public class TaskConfigurationEntry {
 	public static final String SNAPSHOT_KEY = "snapshot";
 	public static final String WORLD_KEY = "world";
 
-	private static final Logger LOGGER = LocalisedLogger.getLogger(TaskConfigurationEntry.class, null);
-
 	private final String date;
+	private final Logger logger = PrefixedLogger.getLogger(this);
 	private final Set<String> regions;
 	private final String schedule;
 	private final String worldName;
@@ -55,7 +55,7 @@ public class TaskConfigurationEntry {
 		this.worldName = section.getString(TaskConfigurationEntry.WORLD_KEY);
 		this.date = (section.getString(TaskConfigurationEntry.SNAPSHOT_KEY));
 		this.regions = new LinkedHashSet<String>(section.getStringList(TaskConfigurationEntry.REGION_KEY));
-		TaskConfigurationEntry.LOGGER.log(Level.CONFIG, this.toString());
+		logger.log(Level.CONFIG, this.toString());
 	}
 
 	public Set<String> getRegions() {

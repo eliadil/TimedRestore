@@ -21,8 +21,11 @@ package name.richardson.james.bukkit.timedrestore.scheduler;
 import it.sauronsoftware.cron4j.Scheduler;
 
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.bukkit.plugin.Plugin;
+
+import name.richardson.james.bukkit.utilities.logging.PrefixedLogger;
 
 import name.richardson.james.bukkit.timedrestore.persistence.TaskConfigurationEntry;
 
@@ -35,7 +38,8 @@ public class CronRestoreTask extends AbstractRestoreTask {
 
 	final private static Scheduler scheduler = new Scheduler();
 
-	final private Plugin plugin;
+	private final Logger logger = PrefixedLogger.getLogger(CronRestoreTask.class);
+	private final Plugin plugin;
 
 	private String id;
 
@@ -90,7 +94,7 @@ public class CronRestoreTask extends AbstractRestoreTask {
 	 */
 	public void deschedule() {
 		CronRestoreTask.scheduler.deschedule(this.id);
-		AbstractRestoreTask.LOGGER.log(Level.FINE, "Descheduled CronTimer at " + this.getConfiguration().getSchedule());
+		logger.log(Level.FINE, "Descheduled CronTimer at " + this.getConfiguration().getSchedule());
 	}
 
 	/**
@@ -111,6 +115,6 @@ public class CronRestoreTask extends AbstractRestoreTask {
 		if (!CronRestoreTask.scheduler.isStarted()) {
 			CronRestoreTask.scheduler.start();
 		}
-		AbstractRestoreTask.LOGGER.log(Level.FINE, "Scheduled CronTimer at " + this.getConfiguration().getSchedule());
+		logger.log(Level.FINE, "Scheduled CronTimer at " + this.getConfiguration().getSchedule());
 	}
 }

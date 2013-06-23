@@ -24,15 +24,19 @@ import java.util.List;
 import org.bukkit.command.CommandSender;
 
 import name.richardson.james.bukkit.timedrestore.TimedRestorePlugin;
+
+import name.richardson.james.bukkit.utilities.colours.ColourScheme;
 import name.richardson.james.bukkit.utilities.command.AbstractCommand;
 import name.richardson.james.bukkit.utilities.command.CommandPermissions;
-import name.richardson.james.bukkit.utilities.localisation.LocalisedCommandSender;
+import name.richardson.james.bukkit.utilities.localisation.LocalisedCoreColourScheme;
 
 /**
  * This command reloads the configuration of the plugin on request.
  */
 @CommandPermissions(permissions = {"timedrestore.reload"})
 public class ReloadCommand extends AbstractCommand {
+
+	private final LocalisedCoreColourScheme localisedColourScheme = new LocalisedCoreColourScheme(this.getResourceBundle());
 
 	private final TimedRestorePlugin plugin;
 
@@ -53,12 +57,11 @@ public class ReloadCommand extends AbstractCommand {
 	 * .List, org.bukkit.command.CommandSender)
 	 */
 	public void execute(final List<String> arguments, final CommandSender sender) {
-		LocalisedCommandSender lsender = new LocalisedCommandSender(sender, this.localisation);
 		try {
 			this.plugin.reloadConfiguration();
-			lsender.info("success");
+			sender.sendMessage(localisedColourScheme.format(ColourScheme.Style.INFO, "success"));
 		} catch (final IOException e) {
-			lsender.error("failure");
+			sender.sendMessage(localisedColourScheme.format(ColourScheme.Style.ERROR, "failure"));
 		}
 	}
 

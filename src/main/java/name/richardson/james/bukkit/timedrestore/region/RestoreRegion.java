@@ -39,7 +39,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
-import name.richardson.james.bukkit.utilities.localisation.LocalisedCommandSender;
+import name.richardson.james.bukkit.utilities.colours.ColourScheme;
+import name.richardson.james.bukkit.utilities.localisation.LocalisedCoreColourScheme;
 import name.richardson.james.bukkit.utilities.localisation.PluginResourceBundle;
 
 /**
@@ -49,13 +50,41 @@ import name.richardson.james.bukkit.utilities.localisation.PluginResourceBundle;
  */
 public class RestoreRegion {
 
-	public static final ResourceBundle LOCALISATION = PluginResourceBundle.getBundle(RestoreRegion.class);
 
 	private static GlobalRegionManager manager;
 	private static SnapshotRepository snapshots;
 	private static List<LocalWorld> worlds;
 
+	private final LocalisedCoreColourScheme coreColourScheme = new LocalisedCoreColourScheme(this.localisation);
+	private final ResourceBundle localisation = PluginResourceBundle.getBundle(RestoreRegion.class);
 	private final Polygonal2DRegion region;
+
+
+	/**
+	 * Instantiates a new RestoreRegion.
+	 *
+	 * This will attempt to find the region requested using the {@link GlobalRegionManager} and then find an associated
+	 * snapshot in the {@link SnapshotRepository}.
+	 *
+	 * @param worldName  the name of the {@link World} that the region resides in.
+	 * @param regionName the name of the {@link Polygonal2dRegion} to restore.
+	 *
+	 * @throws InvalidWorldException  thrown is the is no {@link World} loaded with that name.
+	 * @throws InvalidRegionException thrown if there is no {@link Polygonal2dRegion} matching the name supplied.
+	 */
+	public RestoreRegion(final String worldName, final String regionName)
+		throws InvalidWorldException, InvalidRegionException {
+		final World world = Bukkit.getWorld(worldName);
+		if (world == null) {
+			throw new InvalidWorldException(worldName);
+		}
+		final ProtectedRegion worldGuardRegion = RestoreRegion.manager.get(world).getRegion(regionName);
+		final LocalWorld localWorld = RestoreRegion.getLocalWorld(worldName);
+		if ((localWorld == null) || (worldGuardRegion == null)) {
+			throw new InvalidRegionException(worldName, regionName);
+		}
+		this.region = new Polygonal2DRegion(localWorld, worldGuardRegion.getPoints(), 0, world.getMaxHeight());
+	}
 
 	public static LocalWorld getLocalWorld(final String worldName) {
 		for (final LocalWorld world : RestoreRegion.worlds) {
@@ -91,32 +120,6 @@ public class RestoreRegion {
 	}
 
 	/**
-	 * Instantiates a new RestoreRegion.
-	 *
-	 * This will attempt to find the region requested using the {@link GlobalRegionManager} and then find an associated
-	 * snapshot in the {@link SnapshotRepository}.
-	 *
-	 * @param worldName  the name of the {@link World} that the region resides in.
-	 * @param regionName the name of the {@link Polygonal2dRegion} to restore.
-	 *
-	 * @throws InvalidWorldException  thrown is the is no {@link World} loaded with that name.
-	 * @throws InvalidRegionException thrown if there is no {@link Polygonal2dRegion} matching the name supplied.
-	 */
-	public RestoreRegion(final String worldName, final String regionName)
-		throws InvalidWorldException, InvalidRegionException {
-		final World world = Bukkit.getWorld(worldName);
-		if (world == null) {
-			throw new InvalidWorldException(worldName);
-		}
-		final ProtectedRegion worldGuardRegion = RestoreRegion.manager.get(world).getRegion(regionName);
-		final LocalWorld localWorld = RestoreRegion.getLocalWorld(worldName);
-		if ((localWorld == null) || (worldGuardRegion == null)) {
-			throw new InvalidRegionException(worldName, regionName);
-		}
-		this.region = new Polygonal2DRegion(localWorld, worldGuardRegion.getPoints(), 0, world.getMaxHeight());
-	}
-
-	/**
 	 * Move any players who are currently in region to be restored to safety.
 	 *
 	 * This prevents players from being encased in stone or other materials when the region is restored from the snapshot.
@@ -128,10 +131,9 @@ public class RestoreRegion {
 			final double z = player.getLocation().getZ();
 			final Vector vector = new Vector(x, y, z);
 			if (this.region.contains(vector)) {
-				LocalisedCommandSender lsender = new LocalisedCommandSender(player, LOCALISATION);
-				lsender.warning("area-being-restored");
+				player.sendMessage(coreColourScheme.format(ColourScheme.Style.WARNING, "area-being-restored"));
 				player.teleport(player.getWorld().getSpawnLocation());
-				lsender.info("teleported-to-safety");
+				player.sendMessage(coreColourScheme.format(ColourScheme.Style.INFO, "teleported-to-safety"));
 			}
 		}
 	}

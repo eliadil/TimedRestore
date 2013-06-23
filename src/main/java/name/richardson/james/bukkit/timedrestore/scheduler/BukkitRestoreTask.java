@@ -23,10 +23,13 @@ import com.sk89q.worldedit.snapshots.InvalidSnapshotException;
 
 import java.io.IOException;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitScheduler;
+
+import name.richardson.james.bukkit.utilities.logging.PrefixedLogger;
 
 import name.richardson.james.bukkit.timedrestore.TimedRestorePlugin;
 import name.richardson.james.bukkit.timedrestore.persistence.TaskConfigurationEntry;
@@ -44,7 +47,9 @@ import name.richardson.james.bukkit.timedrestore.region.RestoreRegion;
 public class BukkitRestoreTask extends AbstractRestoreTask {
 
 	final private static BukkitScheduler scheduler = Bukkit.getScheduler();
-	final private Plugin plugin;
+
+	private final Logger logger = PrefixedLogger.getLogger(BukkitRestoreTask.class);
+	private final Plugin plugin;
 
 	private CronRestoreTask cronTask;
 	private int id;
@@ -69,7 +74,7 @@ public class BukkitRestoreTask extends AbstractRestoreTask {
 	 */
 	public void deschedule() {
 		BukkitRestoreTask.scheduler.cancelTask(this.id);
-		AbstractRestoreTask.LOGGER.log(Level.FINE, "Descheduled BukkitTask");
+		logger.log(Level.FINE, "Descheduled BukkitTask");
 	}
 
 	/**
@@ -82,27 +87,27 @@ public class BukkitRestoreTask extends AbstractRestoreTask {
 	 */
 	public void run() {
 		for (final String regionName : this.getConfiguration().getRegions()) {
-			AbstractRestoreTask.LOGGER.log(Level.INFO, "Restoring region: " + regionName);
+			logger.log(Level.INFO, "Restoring region: " + regionName);
 			try {
 				final RestoreRegion region = new RestoreRegion(this.getConfiguration().getWorldName(), regionName);
 				region.restore(this.getConfiguration().getSnapshotDate());
 			} catch (final InvalidSnapshotException e) {
-				AbstractRestoreTask.LOGGER.log(Level.WARNING, "Snapshot `{0}` does not exist!", this.getConfiguration().getSnapshotDate());
+				logger.log(Level.WARNING, "Snapshot `{0}` does not exist!", this.getConfiguration().getSnapshotDate());
 				this.cronTask.deschedule();
 			} catch (final IOException e) {
-				AbstractRestoreTask.LOGGER.log(Level.WARNING, "Unable to restore region.");
+				logger.log(Level.WARNING, "Unable to restore region.");
 				e.printStackTrace();
 				this.cronTask.deschedule();
 			} catch (final DataException e) {
-				AbstractRestoreTask.LOGGER.log(Level.WARNING, "Unable to restore region.");
+				logger.log(Level.WARNING, "Unable to restore region.");
 				e.printStackTrace();
 				this.cronTask.deschedule();
 			} catch (final InvalidWorldException e) {
-				AbstractRestoreTask.LOGGER.log(Level.WARNING, "World `{0}` does not exist!", e.getWorldName());
+				logger.log(Level.WARNING, "World `{0}` does not exist!", e.getWorldName());
 				this.cronTask.deschedule();
 			} catch (final InvalidRegionException e) {
 				final Object[] params = {e.getWorldName(), e.getRegionName()};
-				AbstractRestoreTask.LOGGER.log(Level.WARNING, "Region `{0}:{1}` does not exist!", params);
+				logger.log(Level.WARNING, "Region `{0}:{1}` does not exist!", params);
 				this.cronTask.deschedule();
 			}
 		}
@@ -116,7 +121,7 @@ public class BukkitRestoreTask extends AbstractRestoreTask {
 	public void schedule() {
 		if (this.plugin.isEnabled()) {
 			this.id = BukkitRestoreTask.scheduler.scheduleSyncDelayedTask(this.plugin, this);
-			AbstractRestoreTask.LOGGER.log(Level.FINE, "Scheduled BukkitTask");
+			logger.log(Level.FINE, "Scheduled BukkitTask");
 		}
 	}
 
