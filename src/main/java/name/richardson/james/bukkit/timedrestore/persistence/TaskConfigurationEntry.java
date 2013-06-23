@@ -38,8 +38,9 @@ public class TaskConfigurationEntry {
 	public static final String SNAPSHOT_KEY = "snapshot";
 	public static final String WORLD_KEY = "world";
 
+	private static final Logger logger = PrefixedLogger.getLogger(TaskConfigurationEntry.class);
+
 	private final String date;
-	private final Logger logger = PrefixedLogger.getLogger(this);
 	private final Set<String> regions;
 	private final String schedule;
 	private final String worldName;

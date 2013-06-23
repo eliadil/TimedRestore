@@ -38,7 +38,6 @@ public class CronRestoreTask extends AbstractRestoreTask {
 
 	final private static Scheduler scheduler = new Scheduler();
 
-	private final Logger logger = PrefixedLogger.getLogger(CronRestoreTask.class);
 	private final Plugin plugin;
 
 	private String id;

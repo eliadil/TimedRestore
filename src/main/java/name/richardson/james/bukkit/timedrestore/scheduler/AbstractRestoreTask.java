@@ -18,6 +18,10 @@
 
 package name.richardson.james.bukkit.timedrestore.scheduler;
 
+import java.util.logging.Logger;
+
+import name.richardson.james.bukkit.utilities.logging.PrefixedLogger;
+
 import name.richardson.james.bukkit.timedrestore.persistence.TaskConfigurationEntry;
 
 /**
@@ -26,6 +30,9 @@ import name.richardson.james.bukkit.timedrestore.persistence.TaskConfigurationEn
  * TaskConfigurationEntry} for each task in a consistent way.
  */
 public abstract class AbstractRestoreTask implements RestoreTask {
+
+	protected static final Logger logger = PrefixedLogger.getLogger(AbstractRestoreTask.class);
+
 
 	private final TaskConfigurationEntry configuration;
 

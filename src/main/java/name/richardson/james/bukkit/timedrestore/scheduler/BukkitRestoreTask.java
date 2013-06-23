@@ -48,7 +48,6 @@ public class BukkitRestoreTask extends AbstractRestoreTask {
 
 	final private static BukkitScheduler scheduler = Bukkit.getScheduler();
 
-	private final Logger logger = PrefixedLogger.getLogger(BukkitRestoreTask.class);
 	private final Plugin plugin;
 
 	private CronRestoreTask cronTask;
